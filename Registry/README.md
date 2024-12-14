@@ -33,7 +33,8 @@ This guide explains how to configure Docker to trust a self-signed certificate f
 
 On the private registry server, generate a self-signed certificate:
 ```bash
-mkdir -p certs
+cd Registry
+mkdir -p certs auth data
 openssl req -x509 -newkey rsa:4096 -nodes -keyout certs/cert.key -out certs/cert.crt -days 365 \
   -subj "/CN=192.168.2.130" \
   -addext "subjectAltName=IP:192.168.2.130"
@@ -112,4 +113,8 @@ You should see a JSON response.
 Log into the private registry:
 ```bash
 docker login https://192.168.2.130:5002
+```
+You should see
+```bash
+Login Succeeded
 ```

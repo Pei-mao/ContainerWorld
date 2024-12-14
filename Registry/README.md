@@ -37,6 +37,7 @@ mkdir -p certs
 openssl req -x509 -newkey rsa:4096 -nodes -keyout certs/cert.key -out certs/cert.crt -days 365 \
   -subj "/CN=192.168.2.130" \
   -addext "subjectAltName=IP:192.168.2.130"
+```
 
 ### 2. Configure the Registry
 
@@ -52,6 +53,7 @@ docker run -d -p 5002:5000 --name registry \
   -e REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm" \
   -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
   registry:2
+```
 
 ### 3. Trust the Certificate on macOS
 
@@ -59,11 +61,13 @@ docker run -d -p 5002:5000 --name registry \
 Before proceeding, rename cert.crt to ca.crt:
 ```bash
 mv /Users/username/Desktop/cert.crt /Users/username/Desktop/ca.crt
+```
 
 #### Step 2: Add the certificate to the macOS trust store
 Add the ca.crt file to the system trust store:
 ```bash
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /Users/username/Desktop/ca.crt
+```
 
 Replace /Users/username/Desktop/ca.crt with the actual path of your certificate.
 
@@ -81,16 +85,19 @@ Follow the same steps as in macOS to configure the registry.
 Rename cert.crt to ca.crt:
 ```bash
 mv /path/to/cert.crt /path/to/ca.crt
+```
 
 #### Step 2: Add the certificate to Docker's trusted directory
 Copy the ca.crt file to the correct Docker directory:
 ```bash
 sudo mkdir -p /etc/docker/certs.d/192.168.2.130:5002
 sudo cp /path/to/ca.crt /etc/docker/certs.d/192.168.2.130:5002/ca.crt
+```
 
 #### Step 3: Restart Docker to apply the changes
 ```bash
 sudo systemctl restart docker
+```
 
 ## Validation
 
@@ -98,9 +105,11 @@ sudo systemctl restart docker
 Open a browser and navigate to:
 ```bash
 https://192.168.2.130:5002/v2/_catalog
+```
 You should see a JSON response.
 
 ### Test Using Docker
 Log into the private registry:
 ```bash
 docker login https://192.168.2.130:5002
+```

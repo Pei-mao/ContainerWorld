@@ -4,7 +4,7 @@ Welcome to **ContainerWorld**, a comprehensive collection of containerized proje
 
 ## 📦 Current Projects
 
-### 1. **Registries**  
+### 1. **Registry**  
 A private container registry for securely hosting and managing your Docker images. This project includes:
 - Support for HTTPS (TLS) for secure connections.
 - Basic authentication for access control.

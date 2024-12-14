@@ -10,7 +10,7 @@ A private container registry for securely hosting and managing your Docker image
 - Basic authentication for access control.
 - Easy setup using Docker or Docker Compose.
 
-[Learn More About Registries](Registries/README.md)
+[Learn More About Registries](Registry/README.md)
 
 ### 2. **[Future Project Placeholder]**  
 Description of the next project will go here.

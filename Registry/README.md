@@ -122,30 +122,30 @@ Login Succeeded
 
 #### Step 2: Tag the Image
 Tag your local image with the address of the private registry. For example, if you have an image called hello-world:
-ˋˋˋbash
+```bash
 docker tag hello-world 192.168.2.130:5002/hello-world
-ˋˋˋ
+```
 
 #### Step 3: Push the Image to the Registry
 Push the tagged image to the private registry using the following command:
-ˋˋˋbash
+```bash
 docker push 192.168.2.130:5002/hello-world
-ˋˋˋ
+```
 
 ### Step 4: Pull the Image from the Registry 
 To confirm that the image was successfully pushed, you can pull it back from the registry:
-ˋˋˋbash
+```bash
 docker pull 192.168.2.130:5002/hello-world
-ˋˋˋ
+```
 
 ### Verify Using curl
 You can also verify the image repository and tags using curl. For example:
 - **List all repositories**:
-ˋˋˋbash
+```bash
 curl -u jacky:123456 https://192.168.2.130:5002/v2/_catalog
-ˋˋˋ
+```
 
 - **Check the tags of a specific repository**:
-ˋˋˋbash
+```bash
 curl -u jacky:123456 https://192.168.2.130:5002/v2/hello-world/tags/list
-ˋˋˋ
+```

@@ -30,7 +30,6 @@
 ## Setup on macOS
 
 ### 1. Generate Self-Signed Certificate
-
 On the private registry server, generate a self-signed certificate:
 ```bash
 cd Registry
@@ -41,7 +40,6 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout certs/cert.key -out certs/cert
 ```
 
 ### 2. Configure the Registry
-
 Start the Docker registry with the generated certificate:
 ```bash
 docker run -d -p 5002:5000 --name registry \
@@ -57,14 +55,12 @@ docker run -d -p 5002:5000 --name registry \
 ```
 
 ### 3. Trust the Certificate on macOS
-
-- Step 1: Rename the certificate file
+Combine the following steps to trust the self-signed certificate on macOS:
 ```bash
+# Rename the certificate file
 mv /Users/username/Desktop/cert.crt /Users/username/Desktop/ca.crt
-```
 
-- Step 2: Add the certificate to the macOS trust store
-```bash
+# Add the certificate to the macOS trust store
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /Users/username/Desktop/ca.crt
 ```
 
@@ -76,20 +72,16 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 Follow the same steps as in macOS to generate the certificate and configure the registry.
 
 ### 2. Trust the Certificate on Linux
-
-- Step 1: Rename the certificate file
+Combine the following steps to trust the self-signed certificate on Linux:
 ```bash
+# Rename the certificate file
 mv /path/to/cert.crt /path/to/ca.crt
-```
 
-- Step 2: Add the certificate to Docker's trusted directory
-```bash
+# Add the certificate to Docker's trusted directory
 sudo mkdir -p /etc/docker/certs.d/192.168.2.130:5002
 sudo cp /path/to/ca.crt /etc/docker/certs.d/192.168.2.130:5002/ca.crt
-```
 
-- Step 3: Restart Docker to apply the changes
-```bash
+# Restart Docker to apply the changes
 sudo systemctl restart docker
 ```
 
@@ -98,11 +90,12 @@ sudo systemctl restart docker
 ## Validation
 
 ### Validate Using a Browser 🌐
-Open a browser and navigate to:
+
+Navigate to the following URL in a browser:
 ```bash
 https://192.168.2.130:5002/v2/_catalog
 ```
-You should see a JSON response similar to this:
+Expected JSON response:
 ```json
 {
   "repositories": ["hello-world"]
@@ -111,47 +104,39 @@ You should see a JSON response similar to this:
 
 ### Validate Using Docker 🐳
 
-- Step 1: Log in to the Registry
+Combine the following steps to validate the private registry using Docker:
 ```bash
+# Step 1: Log in to the Registry
 docker login https://192.168.2.130:5002
-```
 
-- Step 2: Tag a Local Image
-```bash
+# Step 2: Tag a Local Image
 docker tag hello-world 192.168.2.130:5002/hello-world
-```
 
-- Step 3: Push the Image
-```bash
+# Step 3: Push the Image
 docker push 192.168.2.130:5002/hello-world
-```
 
-- Step 4: Pull the Image
-```bash
+# Step 4: Pull the Image
 docker pull 192.168.2.130:5002/hello-world
 ```
 
 ### Validate Using curl 📡
 
-- Step 1: List All Repositories
+Combine the following steps to validate using curl:
 ```bash
+# List All Repositories
 curl -u jacky:123456 https://192.168.2.130:5002/v2/_catalog
-```
-Expected output:
-```json
-{
-  "repositories": ["hello-world"]
-}
-```
 
-- Step 2: Check Tags of a Specific Repository
-```bash
+# Expected output:
+# {
+#   "repositories": ["hello-world"]
+# }
+
+# Check Tags of a Specific Repository
 curl -u jacky:123456 https://192.168.2.130:5002/v2/hello-world/tags/list
-```
-Expected output:
-```json
-{
-  "name": "hello-world",
-  "tags": ["latest"]
-}
+
+# Expected output:
+# {
+#   "name": "hello-world",
+#   "tags": ["latest"]
+# }
 ```

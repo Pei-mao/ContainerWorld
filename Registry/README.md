@@ -72,6 +72,8 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 
 Replace `/Users/username/Desktop/ca.crt` with the actual path of your certificate.
 
+---
+
 ## Setup on Linux
 
 ### 1. Generate Self-Signed Certificate
@@ -99,6 +101,8 @@ sudo cp /path/to/ca.crt /etc/docker/certs.d/192.168.2.130:5002/ca.crt
 ```bash
 sudo systemctl restart docker
 ```
+
+---
 
 ## Validation
 

@@ -107,10 +107,11 @@ Open a browser and navigate to:
 ```bash
 https://192.168.2.130:5002/v2/_catalog
 ```
-You should see a JSON response.
+You should see a JSON response like the following, showing the repositories stored in your private registry:
+![browser_catalog](./browser_catalog.png)
 
-### Test Using Docker
-Log into the private registry:
+### Test Using Docker and Using the Private Docker Registry
+#### Step 1:Log into the private registry:
 ```bash
 docker login https://192.168.2.130:5002
 ```
@@ -118,3 +119,33 @@ You should see
 ```bash
 Login Succeeded
 ```
+
+#### Step 2: Tag the Image
+Tag your local image with the address of the private registry. For example, if you have an image called hello-world:
+ˋˋˋbash
+docker tag hello-world 192.168.2.130:5002/hello-world
+ˋˋˋ
+
+#### Step 3: Push the Image to the Registry
+Push the tagged image to the private registry using the following command:
+ˋˋˋbash
+docker push 192.168.2.130:5002/hello-world
+ˋˋˋ
+
+### Step 4: Pull the Image from the Registry 
+To confirm that the image was successfully pushed, you can pull it back from the registry:
+ˋˋˋbash
+docker pull 192.168.2.130:5002/hello-world
+ˋˋˋ
+
+### Verify Using curl
+You can also verify the image repository and tags using curl. For example:
+- **List all repositories**:
+ˋˋˋbash
+curl -u jacky:123456 https://192.168.2.130:5002/v2/_catalog
+ˋˋˋ
+
+- **Check the tags of a specific repository**:
+ˋˋˋbash
+curl -u jacky:123456 https://192.168.2.130:5002/v2/hello-world/tags/list
+ˋˋˋ

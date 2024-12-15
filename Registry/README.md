@@ -110,6 +110,8 @@ https://192.168.2.130:5002/v2/_catalog
 You should see a JSON response like the following, showing the repositories stored in your private registry:
 ![browser_catalog](./browser_catalog.png)
 
+---
+
 ### Test Using Docker and Using the Private Docker Registry
 #### Step 1:Log into the private registry:
 ```bash

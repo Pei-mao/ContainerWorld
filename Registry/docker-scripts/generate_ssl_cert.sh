@@ -7,8 +7,8 @@
 
 # Define variables
 CERTS_DIR="certs"
-CERT_KEY="${CERTS_DIR}/cert2.key"
-CERT_CRT="${CERTS_DIR}/cert2.crt"
+CERT_KEY="${CERTS_DIR}/cert.key"
+CERT_CRT="${CERTS_DIR}/cert.crt"
 IP="192.168.2.130" # Update this to your desired IP address
 DAYS=365           # Certificate validity in days
 

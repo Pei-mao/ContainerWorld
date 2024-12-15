@@ -1,29 +1,29 @@
 # Configuring Docker to Trust a Private Registry
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Requirements](#requirements)
-3. [Setup on macOS](#setup-on-macos)
-4. [Setup on Linux](#setup-on-linux)
-5. [Validation](#validation)
+1. [Introduction](#introduction) 🛠️
+2. [Requirements](#requirements) 📋
+3. [Setup on macOS](#setup-on-macos) 🍎
+4. [Setup on Linux](#setup-on-linux) 🐧
+5. [Validation](#validation) ✅
 
 ---
 
 ## Introduction
 
-This guide explains how to configure Docker to trust a self-signed certificate for a private Docker registry. By following this guide, you will ensure secure communication between Docker clients and your private registry at `https://192.168.2.130:5002`.
+📦 This guide explains how to configure Docker to trust a self-signed certificate for a private Docker registry. By following this guide, you will ensure secure communication between Docker clients and your private registry at `https://192.168.2.130:5002`.
 
 ---
 
 ## Requirements
 
 - **Operating Systems**:
-  - macOS Monterey or later
-  - Ubuntu 20.04 or later
+  - macOS Monterey or later 🍎
+  - Ubuntu 20.04 or later 🐧
 - **Software**:
-  - Docker 20.10 or later
-  - OpenSSL for generating self-signed certificates
-  - A browser for HTTPS testing
+  - Docker 20.10 or later 🐳
+  - OpenSSL for generating self-signed certificates 🔐
+  - A browser for HTTPS testing 🌐
 
 ---
 
@@ -102,7 +102,7 @@ sudo systemctl restart docker
 
 ## Validation
 
-### Validate Using a Browser
+### Validate Using a Browser 🌐
 Open a browser and navigate to:
 ```bash
 https://192.168.2.130:5002/v2/_catalog
@@ -114,7 +114,7 @@ You should see a JSON response similar to this:
 }
 ```
 
-### Validate Using Docker
+### Validate Using Docker 🐳
 
 #### Step 1: Log in to the Registry
 Run the following command:
@@ -144,7 +144,7 @@ Verify the image was successfully uploaded by pulling it back:
 docker pull 192.168.2.130:5002/hello-world
 ```
 
-### Validate Using curl
+### Validate Using curl 📡
 
 #### Step 1: List All Repositories
 To list all available repositories in the registry, run:

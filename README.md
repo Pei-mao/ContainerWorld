@@ -6,11 +6,11 @@ Welcome to **ContainerWorld**, a comprehensive collection of containerized proje
 
 ### 1. **Registry**  
 A private container registry for securely hosting and managing your Docker images. This project includes:
-- Support for HTTPS (TLS) for secure connections.
-- Basic authentication for access control.
-- Easy setup using Docker or Docker Compose.
+- Support for `HTTPS (TLS)` for secure connections.
+- `Basic authentication` for access control.
+- Easy setup using `Docker` or `Docker Compose`.
 
-[Learn More About Registry](Registry/README.md)
+[Learn More About Registries](Registry/README.md)
 
 ### 2. **[Future Project Placeholder]**  
 Description of the next project will go here.
@@ -35,4 +35,4 @@ Description of another future project will go here.
    ```bash
    git clone https://github.com/Pei-mao/ContainerWorld.git
    cd ContainerWorld
-   ```
+   

@@ -103,17 +103,16 @@ sudo systemctl restart docker
 ## Validation
 
 ### Validate Using a Browser
-1. Open a browser and navigate to:
-    ```bash
-    https://192.168.2.130:5002/v2/_catalog
-    ```
-2. A JSON response should appear, listing the repositories stored in your private registry.
-    Example:
-    ```json
-    {
-      "repositories": ["hello-world"]
-    }
-    ```
+Open a browser and navigate to:
+```bash
+https://192.168.2.130:5002/v2/_catalog
+```
+You should see a JSON response similar to this:
+```json
+{
+  "repositories": ["hello-world"]
+}
+```
 
 ### Validate Using Docker
 

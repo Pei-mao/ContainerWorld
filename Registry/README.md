@@ -102,52 +102,72 @@ sudo systemctl restart docker
 
 ## Validation
 
-### Test Using a Browser
-Open a browser and navigate to:
-```bash
-https://192.168.2.130:5002/v2/_catalog
-```
-You should see a JSON response like the following, showing the repositories stored in your private registry:
-![browser_catalog](./browser_catalog.png)
+### Validate Using a Browser
+1. Open a browser and navigate to:
+    ```bash
+    https://192.168.2.130:5002/v2/_catalog
+    ```
+2. A JSON response should appear, listing the repositories stored in your private registry.
+    Example:
+    ```json
+    {
+      "repositories": ["hello-world"]
+    }
+    ```
 
----
+### Validate Using Docker
 
-### Test Using Docker and Using the Private Docker Registry
-#### Step 1:Log into the private registry:
+#### Step 1: Log in to the Registry
+Run the following command:
 ```bash
 docker login https://192.168.2.130:5002
 ```
-You should see
+Expected output:
 ```bash
 Login Succeeded
 ```
 
-#### Step 2: Tag the Image
-Tag your local image with the address of the private registry. For example, if you have an image called hello-world:
+#### Step 2: Tag a Local Image
+Tag your local Docker image for the private registry. For example:
 ```bash
 docker tag hello-world 192.168.2.130:5002/hello-world
 ```
 
-#### Step 3: Push the Image to the Registry
-Push the tagged image to the private registry using the following command:
+#### Step 3: Push the Image
+Push the tagged image to your private registry:
 ```bash
 docker push 192.168.2.130:5002/hello-world
 ```
 
-### Step 4: Pull the Image from the Registry 
-To confirm that the image was successfully pushed, you can pull it back from the registry:
+#### Step 4: Pull the Image
+Verify the image was successfully uploaded by pulling it back:
 ```bash
 docker pull 192.168.2.130:5002/hello-world
 ```
 
-### Verify Using curl
-You can also verify the image repository and tags using curl. For example:
-- **List all repositories**:
+### Validate Using curl
+
+#### Step 1: List All Repositories
+To list all available repositories in the registry, run:
 ```bash
 curl -u jacky:123456 https://192.168.2.130:5002/v2/_catalog
 ```
+Expected output:
+```json
+{
+  "repositories": ["hello-world"]
+}
+```
 
-- **Check the tags of a specific repository**:
+#### Step 2: Check Tags of a Specific Repository
+For example, to see the tags of `hello-world`, run:
 ```bash
 curl -u jacky:123456 https://192.168.2.130:5002/v2/hello-world/tags/list
+```
+Expected output:
+```json
+{
+  "name": "hello-world",
+  "tags": ["latest"]
+}
 ```

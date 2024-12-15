@@ -1,4 +1,4 @@
-# Configuring Docker to Trust a Private Registry
+# Configuring Docker to Set Up a Private Registry
 
 ## Table of Contents
 1. [Introduction](#introduction) 🛠️

@@ -18,12 +18,12 @@
 ## Requirements
 
 - **Operating Systems**:
-  - macOS Monterey or later 🍎
-  - Ubuntu 20.04 or later 🐧
+  - `macOS Monterey or later` 🍎
+  - `Ubuntu 20.04 or later` 🐧
 - **Software**:
-  - Docker 20.10 or later 🐳
-  - OpenSSL for generating self-signed certificates 🔐
-  - A browser for HTTPS testing 🌐
+  - `Docker 20.10 or later` 🐳
+  - `OpenSSL` for generating self-signed certificates 🔐
+  - `A browser` for HTTPS testing 🌐
 
 ---
 
@@ -59,18 +59,18 @@ docker run -d -p 5002:5000 --name registry \
 ### 3. Trust the Certificate on macOS
 
 #### Step 1: Rename the certificate file
-Before proceeding, rename cert.crt to ca.crt:
+Before proceeding, rename `cert.crt` to `ca.crt`:
 ```bash
 mv /Users/username/Desktop/cert.crt /Users/username/Desktop/ca.crt
 ```
 
 #### Step 2: Add the certificate to the macOS trust store
-Add the ca.crt file to the system trust store:
+Add the `ca.crt` file to the system trust store:
 ```bash
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /Users/username/Desktop/ca.crt
 ```
 
-Replace /Users/username/Desktop/ca.crt with the actual path of your certificate.
+Replace `/Users/username/Desktop/ca.crt` with the actual path of your certificate.
 
 ## Setup on Linux
 
@@ -83,13 +83,13 @@ Follow the same steps as in macOS to configure the registry.
 ### 3. Trust the Certificate on Linux
 
 #### Step 1: Rename the certificate file
-Rename cert.crt to ca.crt:
+Rename `cert.crt` to `ca.crt`:
 ```bash
 mv /path/to/cert.crt /path/to/ca.crt
 ```
 
 #### Step 2: Add the certificate to Docker's trusted directory
-Copy the ca.crt file to the correct Docker directory:
+Copy the `ca.crt` file to the correct Docker directory:
 ```bash
 sudo mkdir -p /etc/docker/certs.d/192.168.2.130:5002
 sudo cp /path/to/ca.crt /etc/docker/certs.d/192.168.2.130:5002/ca.crt

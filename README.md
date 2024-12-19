@@ -9,7 +9,6 @@ A private container registry for securely hosting and managing your Docker image
 - Support for `HTTPS (TLS)` for secure connections.
 - `Basic authentication` for access control.
 - Easy setup using `Docker` or `Docker Compose`.
-
 [Learn More About Registry](Registry/README.md)
 
 ### 2. **JupyterhubDock**  
@@ -18,7 +17,6 @@ A scalable, containerized JupyterHub environment for collaborative development. 
 - DockerSpawner integration: Isolate each user's environment using Docker containers.
 - Resource control: Limit CPU and memory usage for each user to ensure system stability.
 - Customizable images: Use pre-built or custom Docker images for diverse development needs.
-
 [Learn More About JupyterhubDock](JupyterhubDock/README.md)
 
 ### 3. **[Future Project Placeholder]**  

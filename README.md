@@ -12,8 +12,14 @@ A private container registry for securely hosting and managing your Docker image
 
 [Learn More About Registry](Registry/README.md)
 
-### 2. **[Future Project Placeholder]**  
-Description of the next project will go here.
+### 2. **JupyterHubDock**  
+A scalable, containerized JupyterHub environment for collaborative development. This project provides:
+- Multi-user support: Enable multiple users to work simultaneously with individual environments.
+- DockerSpawner integration: Isolate each user's environment using Docker containers.
+- Resource control: Limit CPU and memory usage for each user to ensure system stability.
+- Customizable images: Use pre-built or custom Docker images for diverse development needs.
+
+[Learn More About JupyterHubDock](JupyterHubDock/README.md)
 
 ### 3. **[Future Project Placeholder]**  
 Description of another future project will go here.

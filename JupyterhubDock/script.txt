@@ -1,9 +1,11 @@
+cd /NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock
+
+
 docker build -t my-jupyterhub .
 
 
+'''
 docker run -d -p 8000:8000 --name jupyterhub -v /NFS/PeiMao/ContainerWorld/JupyterhubDock/config:/srv/jupyterhub my-jupyterhub
-
-
 
 
 docker run -d -p 8000:8000 --name jupyterhub \
@@ -12,10 +14,10 @@ docker run -d -p 8000:8000 --name jupyterhub \
 	-v /NFS/ichen:/home/ichen \
         -v /NFS/norm:/home/norm \
 	my-jupyterhub
-
+'''
 
 
 docker run -d -p 8000:8000 --name jupyterhub \
-	-v /NFS/PeiMao/ContainerWorld/JupyterhubDock/config/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py \
-    	-v /NFS:/NFS/ \
-	my-jupyterhub
+	-v /NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock/config/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py \
+    	-v /NFS:/NFS \
+	my-jupyterhub jupyterhub --config /srv/jupyterhub/jupyterhub_config.py

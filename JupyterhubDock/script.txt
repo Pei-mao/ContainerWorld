@@ -1,0 +1,18 @@
+docker run -d -p 8000:8000 --name jupyterhub -v /NFS/PeiMao/server-build5/config:/srv/jupyterhub my-jupyterhub
+
+
+
+
+docker run -d -p 8000:8000 --name jupyterhub \
+	-v /NFS/PeiMao/server-build5/config/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py \
+    	-v /NFS/PeiMao:/home/PeiMao \
+	-v /NFS/ichen:/home/ichen \
+        -v /NFS/norm:/home/norm \
+	my-jupyterhub
+
+
+
+docker run -d -p 8000:8000 --name jupyterhub \
+	-v /NFS/PeiMao/server-build5/config/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py \
+    	-v /NFS:/NFS/ \
+	my-jupyterhub

@@ -12,3 +12,14 @@ RUN useradd -m -s /bin/bash --uid 1000 PeiMao && \
     echo "PeiMao:pppp" | chpasswd && \
     echo "ichen:iiii" | chpasswd && \
     echo "norm:nnnn" | chpasswd
+
+RUN apt-get update && apt-get install -y bash
+
+# 複製初始化腳本到容器內
+COPY init_permissions.sh /usr/local/bin/init_permissions.sh
+RUN chmod +x /usr/local/bin/init_permissions.sh
+
+# 設置啟動時執行初始化腳本
+CMD ["bash", "-c", "/usr/local/bin/init_permissions.sh && jupyterhub --config /srv/jupyterhub/jupyterhub_config.py"]
+
+

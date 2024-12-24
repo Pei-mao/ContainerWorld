@@ -1,10 +1,10 @@
-cd /NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock
+#!/bin/bash
 
+cd /NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock
 
 docker build -t my-jupyterhub .
 
-
 docker run -d -p 8000:8000 --name jupyterhub \
 	-v /NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock/config/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py \
-    	-v /NFS:/NFS \
+	-v /NFS:/NFS \
 	my-jupyterhub

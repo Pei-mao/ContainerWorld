@@ -1037,6 +1037,57 @@ def create_user_dir(spawner):
 
 c.Spawner.pre_spawn_hook = create_user_dir
 c.Spawner.default_url = '/lab'
+
+from dockerspawner import DockerSpawner
+
+# 使用 DockerSpawner 作為 Spawner
+c.JupyterHub.spawner_class = DockerSpawner
+
+# 指定要使用的 Docker 映像
+c.DockerSpawner.image = 'gcr.io/kaggle-gpu-images/python:v128'
+
+# Docker 的附加參數
+c.DockerSpawner.extra_host_config = {
+    'shm_size': '8gb',  # 設定共享記憶體大小
+    'device_requests': [
+        {
+            'Capabilities': [['gpu']]  # 啟用 GPU 支援
+        }
+    ],
+    'port_bindings': {
+        8888: 8080
+    }
+}
+
+# 掛載主機目錄到容器
+c.DockerSpawner.volumes = {
+    '/NFS': {'bind': '/NFS', 'mode': 'rw'}
+}
+
+# Jupyter Notebook 的啟動命令
+c.DockerSpawner.cmd = [
+    'jupyter', 'notebook',
+    '--allow-root',
+    '--ip=0.0.0.0',
+    '--port=8888' ,
+    '--config=/NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock/config/jupyter_notebook_config_v102.py'
+]
+
+# 延長啟動超時時間，避免容器啟動過慢導致失敗
+c.Spawner.http_timeout = 120
+c.Spawner.start_timeout = 120
+
+# 容器自動刪除以釋放資源
+c.DockerSpawner.remove_containers = True
+
+# 指定 Docker 網路名稱
+c.DockerSpawner.network_name = 'jupyterhub-network'
+
+# 將環境變數傳遞給容器
+c.Spawner.environment = {
+    'GRANT_SUDO': 'yes'
+}
+
 #------------------------------------------------------------------------------
 # Authenticator(LoggingConfigurable) configuration
 #------------------------------------------------------------------------------

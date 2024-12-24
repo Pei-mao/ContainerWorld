@@ -4,6 +4,8 @@ RUN pip install --upgrade pip
 
 RUN pip install jupyter
 
+RUN pip install dockerspawner
+
 # 新增多個使用者並設定密碼
 # 使用 echo 將使用者與密碼資訊傳遞給 chpasswd
 RUN useradd -m -s /bin/bash --uid 1000 PeiMao && \

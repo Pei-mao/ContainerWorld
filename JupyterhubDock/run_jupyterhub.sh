@@ -1,9 +1,10 @@
+#!/bin/bash
+
 cd /NFS/PeiMao/GitHub/ContainerWorld/JupyterhubDock
 
 docker network create jupyterhub-network
 
 docker build -t my-jupyterhub .
-
 
 docker run -d -p 8000:8000 --name jupyterhub \
         -v /var/run/docker.sock:/var/run/docker.sock \

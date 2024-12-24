@@ -1,0 +1,20 @@
+docker pull ollama/ollama:latest
+
+docker run -d -p 11434:11434 --name my_ollama ollama/ollama
+(docker run -d --gpus=all -v /NFS/PeiMao/GitHub/ContainerWorld/OllamaLLM:/root/.ollama:z \
+	-p 11434:11434 --name my_ollama ollama/ollama)
+
+docker exec -it my_ollama /bin/bash
+
+ollama list
+
+ollama pull tinyllama
+
+ollama run tinyllama
+
+
+--------------------------------------------
+
+
+ollama run hf.co/RichardErkhov/yentinglin_-_Llama-3-Taiwan-8B-Instruct-gguf
+ollama run hf.co/RichardErkhov/yentinglin_-_Llama-3-Taiwan-70B-Instruct-gguf

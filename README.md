@@ -11,7 +11,7 @@ A private container registry for securely hosting and managing your Docker image
 - Easy setup using `Docker` or `Docker Compose`.  
 [Learn More About Registry](Registry/README.md)
 
-### 2. **JupyterhubDock**  
+### 2. **JupyterhubDock (WIP)**  
 A scalable, containerized JupyterHub environment for collaborative development. This project provides:
 - Multi-user support: Enable multiple users to work simultaneously with individual environments.
 - DockerSpawner integration: Isolate each user's environment using Docker containers.

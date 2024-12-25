@@ -2,6 +2,9 @@
 Registry/data/*
 OllamaLLM/ollama/models/*
 *.ipynb_checkpoints
-OllamaLLM/ollama/history
-OllamaLLM/ollama/id_ed*
-OllamaLLM/anythingllm/*
+OllamaLLM/anythingllm/documents
+OllamaLLM/anythingllm/lancedb
+OllamaLLM/anythingllm/models
+OllamaLLM/anythingllm/vector-cache
+OllamaLLM/anythingllm/anythingllm.db
+

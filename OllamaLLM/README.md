@@ -51,6 +51,18 @@ bash Ollama_script.sh
 
 This script will list available Ollama models and run specified models, such as `Llama-3-Taiwan-8B-Instruct-gguf` and `Llama-3-Taiwan-70B-Instruct-gguf`.
 
+## Visual Overview
+
+Here is a visual representation of the system setup and knowledge base creation:
+
+### Dashboard
+
+![Dashboard](dashboard.PNG)
+
+### Knowledge Base Creation
+
+![Knowledge Base Creation](knowledge_base_creation.PNG)
+
 ## Notes
 
 - Ensure you have the appropriate execution permissions before running any scripts.

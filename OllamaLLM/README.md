@@ -49,7 +49,7 @@ You can use the `Ollama_script.sh` script to list available models and run speci
 bash Ollama_script.sh
 ```
 
-This script will list available Ollama models and run specified models, such as `Llama-3-Taiwan-8B-Instruct-gguf` and `Llama-3-Taiwan-70B-Instruct-gguf`.
+This script will list available Ollama models and run specified models, such as `Llama-3-Taiwan-8B-Instruct-gguf` and `Llama-3-Taiwan-70B-Instruct-gguf`, which are Hugging Face models.
 
 ## Visual Overview
 

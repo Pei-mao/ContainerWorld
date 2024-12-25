@@ -1,6 +1,7 @@
 *.DS_Store
 Registry/data/*
-OllamaLLM/models/*
+OllamaLLM/ollama/models/*
 *.ipynb_checkpoints
-OllamaLLM/history
-OllamaLLM/id_ed*
+OllamaLLM/ollama/history
+OllamaLLM/ollama/id_ed*
+OllamaLLM/anythingllm/*

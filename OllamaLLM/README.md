@@ -1,6 +1,6 @@
 # OllamaLLM
 
-OllamaLLM is a containerized project designed to simplify the deployment and use of large language models by integrating Docker, Ollama, and AnythingLLM. This project includes multiple scripts and configurations to help you quickly start and run the Ollama service.
+OllamaLLM is a containerized project designed to simplify the deployment and use of large language models by integrating Docker, Ollama, and AnythingLLM, while providing a user-friendly GUI interface for enhanced usability. This project includes multiple scripts and configurations to help you quickly start and run the Ollama service.
 
 ## Directory Structure
 

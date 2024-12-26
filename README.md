@@ -19,7 +19,7 @@ A scalable, containerized JupyterHub environment for collaborative development. 
 - Customizable images: Use pre-built or custom Docker images for diverse development needs.  
 [Learn More About JupyterhubDock](JupyterhubDock/README.md)
 
-### 3. **OllamaLLM API (WIP)**  
+### 3. **OllamaLLM API**  
 A containerized deployment of large language models (LLMs) as APIs using `Ollama`. This project enables users to:
 - Run local large language models with API endpoints for seamless integration.
 - Utilize `AnythingLLM` for a GUI interface, offering an intuitive way to interact with LLMs.

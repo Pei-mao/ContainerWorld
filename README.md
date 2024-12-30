@@ -26,6 +26,15 @@ A containerized deployment of large language models (LLMs) as APIs using `Ollama
 - Easily switch between different pre-trained LLMs or fine-tuned models.  
 [Learn More About OllamaLLM API](OllamaLLM/README.md)
 
+### 4. **vLLM API**
+
+The vLLM-based API provides efficient and flexible inference for large language models. Key features include:
+- **Quick Deployment:** Rapid setup with Docker (`docker-compose.yaml`), supporting custom models like `Qwen2.5-7B-Instruct`.
+- **High Performance:** GPU acceleration with adjustable memory usage for stable operation.
+- **Simple API:** OpenAI-style HTTP interface for easy integration, with example scripts like `call_API.py`.
+- **Versatile Use:** Supports chatbots, content generation, and question answering for complex queries like "What is DeepVBM?"  
+[Learn More About vLLM API](vLLM/README.md)
+
 ---
 
 ## 🚀 Why ContainerWorld?

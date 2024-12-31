@@ -1,72 +1,68 @@
-# OllamaLLM
+# vLLM Project
 
-OllamaLLM is a containerized project designed to simplify the deployment and use of large language models by integrating Docker, Ollama, and AnythingLLM, while providing a user-friendly GUI interface for enhanced usability. This project includes multiple scripts and configurations to help you quickly start and run the Ollama service.
+本專案是基於 Docker 與 Hugging Face 模型的 vLLM 部署系統，用於快速搭建並測試語言模型的推論服務。
 
-## Directory Structure
+## 專案結構
 
-- `ollama_api_request_demo.py`: Demonstrates how to send requests to the Ollama API using Python.
-- `run_Anythingllm.sh`: Script to start the AnythingLLM service.
-- `run_Ollama_docker.sh`: Script to pull and run the Ollama Docker image.
-- `Ollama_script.sh`: Script to list available models and run specific models.
-
-## Quick Start
-
-### 1. Start the Ollama Service
-
-First, ensure that Docker is installed. Then, run the `run_Ollama_docker.sh` script to start the Ollama service:
-
-```bash
-bash run_Ollama_docker.sh
+```plaintext
+├── docker-compose.yaml   # Docker Compose 配置文件
+├── start_and_log.sh      # 啟動 Docker 並追蹤日誌的腳本
+├── setup_vllm.sh         # vLLM 系統設置腳本
+├── call_API.py           # 測試 API 調用的 Python 腳本
+├── models/               # Hugging Face 模型存放目錄
+├── README.md             # 專案說明文件
 ```
 
-This script will pull the latest Ollama image and run the container in the background. By default, the service will be mapped to port 11434 on the host machine.
+## 安裝與設置
 
-### 2. Send API Requests Using Python
+1. **準備環境**
+   - 確保您的系統已安裝 Docker 與 Docker Compose。
 
-After starting the service, you can use the `ollama_api_request_demo.py` script to test API requests:
+2. **執行設置腳本**
+
+   運行 `setup_vllm.sh` 安裝必要的依賴與下載模型：
+
+   ```bash
+   bash setup_vllm.sh
+   ```
+
+3. **啟動服務**
+
+   使用 `start_and_log.sh` 啟動 Docker 容器並檢視日誌：
+
+   ```bash
+   bash start_and_log.sh
+   ```
+
+## 測試 API 調用
+
+使用 `call_API.py` 測試模型推論：
 
 ```bash
-python ollama_api_request_demo.py
+python3 call_API.py
 ```
 
-This script sends a request with a prompt to the Ollama service and prints the response.
+此腳本將發送內容至服務並返回模型生成的響應。確保服務已啟動並與 `docker-compose.yaml` 中的配置一致。
 
-## Start AnythingLLM
+## Docker 配置
 
-If you want to start the AnythingLLM service, run the `run_Anythingllm.sh` script:
+`docker-compose.yaml` 定義了以下內容：
+- 使用的模型：`Qwen2.5-7B-Instruct`
+- 容器名稱：`vllm`
+- 暴露的端口：`8000`
+- GPU 記憶體利用率：`70%`
 
-```bash
-bash run_Anythingllm.sh
-```
+## 注意事項
 
-This script creates the necessary storage directory and `.env` file, then starts the AnythingLLM Docker container. By default, the service will be mapped to port 3001 on the host machine.
+1. 請確保 `models` 資料夾中包含正確的 Hugging Face 模型文件。
+2. 若 Docker 無法正確啟動，請檢查 GPU 驅動與 NVIDIA Docker 是否已正確安裝。
 
-## Run Specific Models
+## 項目截圖
 
-You can use the `Ollama_script.sh` script to list available models and run specific ones:
+以下為系統架構的示意圖：
 
-```bash
-bash Ollama_script.sh
-```
+![架構圖](image.png)
 
-This script will list available Ollama models and run specified models, such as `Llama-3-Taiwan-8B-Instruct-gguf` and `Llama-3-Taiwan-70B-Instruct-gguf`, which are Hugging Face models.
+## 聯繫方式
 
-## Visual Overview
-
-Here is a visual representation of the system setup and knowledge base creation:
-
-### Dashboard
-
-![Dashboard](dashboard.PNG)
-
-### Knowledge Base Creation
-
-![Knowledge Base Creation](knowledge_base_creation.PNG)
-
-## Notes
-
-- Ensure you have the appropriate execution permissions before running any scripts.
-- Adjust the configurations in the scripts, such as storage paths and port numbers, to match your system environment.
-- For more information, refer to the official documentation or contact the project maintainer.
-
-We hope this project helps you deploy and use large language models with ease!
+若有任何問題，請聯繫專案維護者或提交 Issue。

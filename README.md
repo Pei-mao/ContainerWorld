@@ -38,7 +38,7 @@ The vLLM-based API provides efficient and flexible inference for large language 
 ### 5. **Portainer**
 
 Portainer provides an intuitive interface for managing and monitoring Docker containers. Key features include:
-- Real-time resource monitoring for CPU and memory usage.
+- Real-time resource monitoring for `CPU` and `memory` usage.
 - Simple container control for starting, stopping, and managing Docker environments.  
 [Learn More About Portainer](Portainer/README.md)
 

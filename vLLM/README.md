@@ -1,68 +1,70 @@
 # vLLM Project
 
-本專案是基於 Docker 與 Hugging Face 模型的 vLLM 部署系統，用於快速搭建並測試語言模型的推論服務。
+This project is a vLLM deployment system based on Docker and Hugging Face models, designed for quickly setting up and testing inference services for language models.
 
-## 專案結構
+## Project Structure
 
 ```plaintext
-├── docker-compose.yaml   # Docker Compose 配置文件
-├── start_and_log.sh      # 啟動 Docker 並追蹤日誌的腳本
-├── setup_vllm.sh         # vLLM 系統設置腳本
-├── call_API.py           # 測試 API 調用的 Python 腳本
-├── models/               # Hugging Face 模型存放目錄
-├── README.md             # 專案說明文件
+├── docker-compose.yaml       # Docker Compose configuration file
+├── docker-scripts/           # Directory for setup and utility scripts
+│   ├── setup_vllm.sh         # Script to set up the vLLM system
+│   ├── start_and_log.sh      # Script to start Docker and monitor logs
+├── models/                   # Directory for Hugging Face models
+│   └── Qwen2.5-7B-Instruct   # Downloaded model directory
+├── call_API.py               # Python script to test API calls
+├── README.md                 # Project documentation file
 ```
 
-## 安裝與設置
+## Installation and Setup
 
-1. **準備環境**
-   - 確保您的系統已安裝 Docker 與 Docker Compose。
+1. **Prepare the Environment**
+   - Ensure Docker and Docker Compose are installed on your system.
 
-2. **執行設置腳本**
+2. **Run the Setup Script**
 
-   運行 `setup_vllm.sh` 安裝必要的依賴與下載模型：
-
-   ```bash
-   bash setup_vllm.sh
-   ```
-
-3. **啟動服務**
-
-   使用 `start_and_log.sh` 啟動 Docker 容器並檢視日誌：
+   Execute `setup_vllm.sh` to install dependencies and download the model:
 
    ```bash
-   bash start_and_log.sh
+   bash docker-scripts/setup_vllm.sh
    ```
 
-## 測試 API 調用
+3. **Start the Service**
 
-使用 `call_API.py` 測試模型推論：
+   Use `start_and_log.sh` to start the Docker container and monitor logs:
+
+   ```bash
+   bash docker-scripts/start_and_log.sh
+   ```
+
+## Testing API Calls
+
+Use `call_API.py` to test model inference:
 
 ```bash
 python3 call_API.py
 ```
 
-此腳本將發送內容至服務並返回模型生成的響應。確保服務已啟動並與 `docker-compose.yaml` 中的配置一致。
+This script sends input to the service and returns the model-generated response. Ensure the service is running and matches the configuration in `docker-compose.yaml`.
 
-## Docker 配置
+## Docker Configuration
 
-`docker-compose.yaml` 定義了以下內容：
-- 使用的模型：`Qwen2.5-7B-Instruct`
-- 容器名稱：`vllm`
-- 暴露的端口：`8000`
-- GPU 記憶體利用率：`70%`
+The `docker-compose.yaml` defines the following:
+- Model used: `Qwen2.5-7B-Instruct`
+- Container name: `vllm`
+- Exposed port: `8000`
+- GPU memory utilization: `70%`
 
-## 注意事項
+## Notes
 
-1. 請確保 `models` 資料夾中包含正確的 Hugging Face 模型文件。
-2. 若 Docker 無法正確啟動，請檢查 GPU 驅動與 NVIDIA Docker 是否已正確安裝。
+1. Ensure the `models` folder contains the correct Hugging Face model files.
+2. If Docker fails to start, check if your GPU drivers and NVIDIA Docker are correctly installed.
 
-## 項目截圖
+## Project Diagram
 
-以下為系統架構的示意圖：
+Below is a system architecture diagram:
 
-![架構圖](image.png)
+![Architecture Diagram](image.png)
 
-## 聯繫方式
+## Contact
 
-若有任何問題，請聯繫專案維護者或提交 Issue。
+If you have any questions, please contact the project maintainer or submit an issue.

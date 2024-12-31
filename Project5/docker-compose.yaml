@@ -1,0 +1,19 @@
+services:
+    vllm:
+      container_name: vllm
+      restart: "no"
+      image: vllm/vllm-openai:v0.6.1
+      ipc: host
+      volumes:
+        - ./models:/models
+      command: ["--model", "/models/Qwen2.5-7B-Instruct",  "--served-model-name", "qwen2.5-7b-instruct",  "--gpu-memory-utilization", "0.70"]
+      ports:
+        - 8000:8000
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: all
+                capabilities: [gpu]
+

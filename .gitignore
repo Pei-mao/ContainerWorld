@@ -7,5 +7,7 @@ OllamaLLM/anythingllm/lancedb
 OllamaLLM/anythingllm/models
 OllamaLLM/anythingllm/vector-cache
 OllamaLLM/anythingllm/anythingllm.db
+OllamaLLM/ollama/history
 Project4/*
+Project5/models
 

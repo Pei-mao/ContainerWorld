@@ -59,11 +59,11 @@ The `docker-compose.yaml` defines the following:
 1. Ensure the `models` folder contains the correct Hugging Face model files.
 2. If Docker fails to start, check if your GPU drivers and NVIDIA Docker are correctly installed.
 
-## Project Diagram
+## Demo Results
 
-Below is a system architecture diagram:
+Below is a demonstration of the model's output:
 
-![Architecture Diagram](image.png)
+![Demo Results](demo.PNG)
 
 ## Contact
 

@@ -42,6 +42,15 @@ Portainer provides an intuitive interface for managing and monitoring `Docker co
 - Simple container control for starting, stopping, and managing Docker environments.  
 [Learn More About Portainer](Portainer/README.md)
 
+### 6. **Whisper API**
+
+WhisperAPI provides a containerized Speech-to-Text API powered by OpenAI's Whisper model. Key features include:
+- Easy-to-deploy Docker setup for hosting the API locally or on the cloud.
+- Real-time transcription of audio files into text via an intuitive HTTP POST interface.
+- Compatibility with various audio formats and support for Dockerized environments.
+- Includes sample commands for API testing, such as curl examples, for rapid integration.  
+[Learn More About Whisper API](Whisper/README.md)
+
 ---
 
 ## 🚀 Why ContainerWorld?

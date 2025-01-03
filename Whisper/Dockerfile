@@ -13,6 +13,9 @@ COPY . .
 # 安裝所需的 Python 套件
 RUN pip install --no-cache-dir flask openai-whisper
 
+# 預先下載 Whisper 模型
+RUN python -c "import whisper; whisper.load_model('base')"
+
 # 開放應用使用的埠
 EXPOSE 5000
 

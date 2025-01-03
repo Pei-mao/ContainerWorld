@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Whisper API - 音檔轉文字</title>
+</head>
+<body>
+    <h1>上傳音檔文件进行轉錄</h1>
+    <form action="/transcribe" method="post" enctype="multipart/form-data">
+        <label for="file">選擇音檔文件：</label>
+        <input type="file" name="file" id="file" accept="audio/*" required>
+        <br><br>
+        <input type="submit" value="上傳並轉錄">
+    </form>
+    <div id="result">
+        <!-- 轉錄结果將顯示在這裡 -->
+    </div>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/transcribe', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            const resultDiv = document.getElementById('result');
+            if (response.ok) {
+                resultDiv.innerHTML = `<h2>轉錄结果：</h2><p>${result.text}</p>`;
+            } else {
+                resultDiv.innerHTML = `<h2>錯誤：</h2><p>${result.error}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
+

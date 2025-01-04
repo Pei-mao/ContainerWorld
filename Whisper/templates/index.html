@@ -3,33 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Whisper API - 音檔轉文字</title>
+    <style>
+        /* 加入轉圈圈的樣式 */
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #result {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>上傳音檔文件进行轉錄</h1>
-    <form action="/transcribe" method="post" enctype="multipart/form-data">
+    <h1>上傳音檔文件進行轉錄</h1>
+    <form id="uploadForm" action="/transcribe" method="post" enctype="multipart/form-data">
         <label for="file">選擇音檔文件：</label>
         <input type="file" name="file" id="file" accept="audio/*" required>
         <br><br>
         <input type="submit" value="上傳並轉錄">
     </form>
+    <div class="loader" id="loader"></div>
     <div id="result">
-        <!-- 轉錄结果將顯示在這裡 -->
+        <!-- 轉錄結果將顯示在這裡 -->
     </div>
     <script>
-        const form = document.querySelector('form');
+        const form = document.querySelector('#uploadForm');
+        const loader = document.getElementById('loader');
+        const resultDiv = document.getElementById('result');
+
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(form);
-            const response = await fetch('/transcribe', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-            const resultDiv = document.getElementById('result');
-            if (response.ok) {
-                resultDiv.innerHTML = `<h2>轉錄结果：</h2><p>${result.text}</p>`;
-            } else {
-                resultDiv.innerHTML = `<h2>錯誤：</h2><p>${result.error}</p>`;
+
+            // 顯示轉圈圈，清空結果
+            loader.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            try {
+                const response = await fetch('/transcribe', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<h2>轉錄結果：</h2><p>${result.text}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<h2>錯誤：</h2><p>${result.error}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<h2>錯誤：</h2><p>請求失敗，請稍後再試。</p>`;
+            } finally {
+                // 隱藏轉圈圈
+                loader.style.display = 'none';
             }
         });
     </script>

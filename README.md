@@ -13,10 +13,10 @@ A private container registry for securely hosting and managing your Docker image
 
 ### 2. **JupyterhubDock (WIP)**  
 A scalable, containerized JupyterHub environment for collaborative development.
-- Multi-user support: Enable multiple users to work simultaneously with individual environments.
-- DockerSpawner integration: Isolate each user's environment using Docker containers.
-- Resource control: Limit CPU and memory usage for each user to ensure system stability.
-- Customizable images: Use pre-built or custom Docker images for diverse development needs.  
+- Multi-user support enabling multiple users to work simultaneously with individual environments.
+- `DockerSpawner` integration isolating each user's environment using `Docker containers`.
+- Resource control limiting CPU and memory usage for each user to ensure system stability.
+- Customizable images with options for pre-built or custom `Docker images`.  
 [Learn More About JupyterhubDock](JupyterhubDock/README.md)
 
 ### 3. **OllamaLLM**  

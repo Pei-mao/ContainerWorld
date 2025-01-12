@@ -24,6 +24,11 @@
         #result {
             text-align: center;
         }
+
+        a {
+            display: block;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -36,7 +41,7 @@
     </form>
     <div class="loader" id="loader"></div>
     <div id="result">
-        <!-- 轉錄結果將顯示在這裡 -->
+        <!-- 轉錄結果和下載連結將顯示在這裡 -->
     </div>
     <script>
         const form = document.querySelector('#uploadForm');
@@ -57,9 +62,14 @@
                     body: formData
                 });
                 const result = await response.json();
-                
+
                 if (response.ok) {
-                    resultDiv.innerHTML = `<h2>轉錄結果：</h2><p>${result.text}</p>`;
+                    // 顯示完整的轉錄結果
+                    resultDiv.innerHTML = `
+                        <h2>轉錄結果：</h2>
+                        <p>${result.transcription_result}</p>
+                        <a href="${result.download_url}" download>下載 JSON 檔案</a>
+                    `;
                 } else {
                     resultDiv.innerHTML = `<h2>錯誤：</h2><p>${result.error}</p>`;
                 }
@@ -73,4 +83,3 @@
     </script>
 </body>
 </html>
-

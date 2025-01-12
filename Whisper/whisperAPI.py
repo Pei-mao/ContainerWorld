@@ -96,7 +96,7 @@ def transcribe_audio():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
 
-        # 使用 pydub 去除音频文件的静音部分
+        # Step1: 使用 pydub 去除音频文件的静音部分
         audio = AudioSegment.from_file(file_path)
         nonsilent_ranges = detect_nonsilent(audio, min_silence_len=1000, silence_thresh=-40)
 
@@ -112,7 +112,7 @@ def transcribe_audio():
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=True) as temp_wav_file:
             trimmed_audio.export(temp_wav_file.name, format="wav")
 
-            # 使用 get_result_monpa 函數獲取處理結果
+            # Step2: 使用 get_result_monpa 函數獲取處理結果
             result, full_text = get_result_monpa(temp_wav_file.name)
 
         # 保存結果為 JSON 文件

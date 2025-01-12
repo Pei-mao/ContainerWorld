@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify, render_template
 import whisper
 import os
+from pydub import AudioSegment
+from pydub.silence import detect_nonsilent
+import tempfile  # 用於創建臨時文件
 
 app = Flask(__name__)
 
@@ -35,11 +38,24 @@ def transcribe_audio():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
 
-        # 使用 Whisper 模型转录音频
-        result = model.transcribe(file_path)
+        # 使用 pydub 去除音频文件的静音部分
+        audio = AudioSegment.from_file(file_path, format="wav")
+        nonsilent_ranges = detect_nonsilent(audio, min_silence_len=1000, silence_thresh=-40)
 
-        # 删除临时保存的文件
-        os.remove(file_path)
+        if nonsilent_ranges:
+            # 裁剪掉静音部分
+            start, _ = nonsilent_ranges[0]
+            trimmed_audio = audio[start:]
+        else:
+            # 如果没有有效音讯，返回错误
+            return jsonify({"error": "No non-silent segments detected."}), 400
+
+        # 創建臨時文件保存處理後的音訊
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=True) as temp_wav_file:
+            trimmed_audio.export(temp_wav_file.name, format="wav")
+            
+            # 使用 Whisper 模型轉錄臨時文件
+            result = model.transcribe(temp_wav_file.name)
 
         return jsonify({"text": result["text"]})
 
@@ -48,4 +64,3 @@ def transcribe_audio():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
-

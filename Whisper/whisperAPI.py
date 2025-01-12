@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # 加载 Whisper 模型
-model = whisper.load_model("base", download_root='./models')
+model = whisper.load_model("large-v3", download_root='./models')
 
 # 设置上传文件的保存路径
 UPLOAD_FOLDER = 'uploads'

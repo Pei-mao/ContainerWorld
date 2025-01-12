@@ -11,3 +11,4 @@ Project4/*
 vLLM/models
 Whisper/lab_interview.m4a
 Whisper/models/*
+Whisper/*.wav

@@ -6,6 +6,6 @@ python download_model.py
 
 docker build -t whisper-api .
 
-docker run -dit -p 5005:5000 --name whisper-api-container whisper-api
+docker run -dit --gpus all -p 5005:5000 --name whisper-api-container whisper-api
 
 curl -X POST "http://172.20.10.5:5005/transcribe" -F "file=@test_music.wav"

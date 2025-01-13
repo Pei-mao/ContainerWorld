@@ -11,6 +11,7 @@ WORKDIR /app
 COPY whisperAPI.py /app/whisperAPI.py
 COPY templates/index.html /app/templates/index.html
 COPY SUBTLEX-CH-WF-traditional.json /app/SUBTLEX-CH-WF-traditional.json
+COPY utils /app/utils
 
 # 複製本地已下載的模型到容器內
 COPY models /app/models

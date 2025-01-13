@@ -23,6 +23,7 @@
 
         #result {
             text-align: center;
+            margin-top: 20px;
         }
 
         a {
@@ -41,7 +42,7 @@
     </form>
     <div class="loader" id="loader"></div>
     <div id="result">
-        <!-- 轉錄結果和下載連結將顯示在這裡 -->
+        <!-- 轉錄結果、資訊指標和下載連結將顯示在這裡 -->
     </div>
     <script>
         const form = document.querySelector('#uploadForm');
@@ -64,12 +65,32 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    // 顯示完整的轉錄結果
-                    resultDiv.innerHTML = `
-                        <h2>轉錄結果：</h2>
-                        <p>${result.transcription_result}</p>
-                        <a href="${result.download_url}" download>下載 JSON 檔案</a>
+                    // 顯示轉錄結果
+                    const transcriptionResult = `<h2>轉錄結果：</h2><p>${result.transcription_result}</p>`;
+
+                    // 顯示資訊指標
+                    const metrics = result.information_metrics;
+                    const metricsTable = `
+                        <h2>資訊指標：</h2>
+                        <table border="1" style="margin: 0 auto;">
+                            <tr><th>指標名稱</th><th>數值</th></tr>
+                            <tr><td>總持續時間 (秒)</td><td>${metrics['Total duration (seconds)']}</td></tr>
+                            <tr><td>總詞數</td><td>${metrics['Total number of words']}</td></tr>
+                            <tr><td>語速 (詞/分鐘)</td><td>${metrics['Speech rate (words/minute)']}</td></tr>
+                            <tr><td>總停頓時間 (秒)</td><td>${metrics['Total pause time (seconds)']}</td></tr>
+                            <tr><td>發音時間 (秒)</td><td>${metrics['Articulation time (seconds)']}</td></tr>
+                            <tr><td>發音率 (詞/分鐘)</td><td>${metrics['Articulation rate (words/minute)']}</td></tr>
+                            <tr><td>平均停頓長度 (秒)</td><td>${metrics['Mean pause length (seconds)']}</td></tr>
+                            <tr><td>平均資訊量 (熵, bits)</td><td>${metrics['Average information (entropy, bits)']}</td></tr>
+                            <tr><td>資訊率 (bits/秒)</td><td>${metrics['Information rate (bits/second)']}</td></tr>
+                        </table>
                     `;
+
+                    // 顯示 JSON 檔案下載連結
+                    const downloadLink = `<a href="${result.download_url}" download>下載 JSON 檔案</a>`;
+
+                    // 將結果顯示在頁面上
+                    resultDiv.innerHTML = `${transcriptionResult}${metricsTable}${downloadLink}`;
                 } else {
                     resultDiv.innerHTML = `<h2>錯誤：</h2><p>${result.error}</p>`;
                 }

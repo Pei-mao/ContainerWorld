@@ -6,6 +6,7 @@ from pydub.silence import detect_nonsilent
 import tempfile  # 用於創建臨時文件
 from monpa import cut
 import json
+import math
 
 app = Flask(__name__)
 
@@ -78,6 +79,69 @@ def get_result_monpa(audio_file):
     # 返回結果
     return merged_results, text
 
+def calculate_information_metrics(result, word_freq_dict):
+    try:
+        # 過濾不需要的詞
+        merged_results = [
+            r for r in result if r['text'] not in {',', ' ', '...'}
+        ]
+
+        total_words = len(merged_results)
+        if total_words == 0:
+            raise ValueError("No valid words to process")
+
+        total_duration = merged_results[-1]['end'] - merged_results[0]['start']
+        total_pause_time = sum(
+            max(merged_results[i + 1]['start'] - merged_results[i]['end'], 0)
+            for i in range(len(merged_results) - 1)
+        )
+        articulation_time = total_duration - total_pause_time
+
+        # 語速和發音率
+        speech_rate = (total_words / total_duration) * 60
+        articulation_rate = (total_words / articulation_time) * 60
+
+        # 平均停頓長度
+        num_pauses = len(merged_results) - 1
+        mean_pause_length = total_pause_time / num_pauses if num_pauses > 0 else 0
+
+        # 熵和資訊率計算
+        information_contents = []
+        for item in merged_results:
+            word = item['text']
+            prob = word_freq_dict.get(word, 1)  # 防止 log(0)
+            info_content = -math.log2(prob)
+            information_contents.append(info_content)
+
+        entropy = sum(information_contents) / total_words
+        information_rate = sum(information_contents) / total_duration
+
+        # 組裝結果
+        return {
+            'Total duration (seconds)': round(total_duration, 2),
+            'Total number of words': total_words,
+            'Speech rate (words/minute)': round(speech_rate, 2),
+            'Total pause time (seconds)': round(total_pause_time, 2),
+            'Articulation time (seconds)': round(articulation_time, 2),
+            'Articulation rate (words/minute)': round(articulation_rate, 2),
+            'Mean pause length (seconds)': round(mean_pause_length, 2),
+            'Average information (entropy, bits)': round(entropy, 2),
+            'Information rate (bits/second)': round(information_rate, 2)
+        }
+    except Exception as e:
+        print(f"Error calculating metrics: {e}")
+        return {
+            'Total duration (seconds)': -1,
+            'Total number of words': -1,
+            'Speech rate (words/minute)': -1,
+            'Total pause time (seconds)': -1,
+            'Articulation time (seconds)': -1,
+            'Articulation rate (words/minute)': -1,
+            'Mean pause length (seconds)': -1,
+            'Average information (entropy, bits)': -1,
+            'Information rate (bits/second)': -1
+        }
+
 # 处理音频文件上传和转录
 @app.route('/transcribe', methods=['POST'])
 def transcribe_audio():
@@ -115,6 +179,20 @@ def transcribe_audio():
             # Step2: 使用 get_result_monpa 函數獲取處理結果
             result, full_text = get_result_monpa(temp_wav_file.name)
 
+        # 加載詞頻表
+        with open('SUBTLEX-CH-WF-traditional.json', 'r', encoding='utf-8') as f:
+    	    word_freq_dict = json.load(f)
+
+        # 確保詞頻總和為 1，進行正規化
+        # 計算總頻數
+        total_freq = sum(word_freq_dict.values())
+        # 計算每個詞的概率
+        for word in word_freq_dict:
+            word_freq_dict[word] /= total_freq
+
+        # Step3: 計算資訊指標
+        information_metrics = calculate_information_metrics(result, word_freq_dict)
+
         # 保存結果為 JSON 文件
         json_file_path = os.path.splitext(file_path)[0] + "_result.json"
         with open(json_file_path, "w", encoding="utf-8") as json_file:
@@ -123,6 +201,7 @@ def transcribe_audio():
         # 同時返回轉錄結果和下載鏈接
         response = {
             "transcription_result": full_text,
+            "information_metrics": information_metrics,
             "download_url": f"/download/{os.path.basename(json_file_path)}"
         }
         return jsonify(response)

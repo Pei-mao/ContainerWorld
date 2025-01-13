@@ -10,6 +10,7 @@ WORKDIR /app
 # 複製應用程式代碼到容器內
 COPY whisperAPI.py /app/whisperAPI.py
 COPY templates/index.html /app/templates/index.html
+COPY SUBTLEX-CH-WF-traditional.json /app/SUBTLEX-CH-WF-traditional.json
 
 # 複製本地已下載的模型到容器內
 COPY models /app/models
@@ -24,5 +25,5 @@ RUN pip install --no-cache-dir flask openai-whisper pydub monpa six
 EXPOSE 5000
 
 # 啟動 Flask 應用
-CMD ["python", "whisperAPI.py"]
+#CMD ["python", "whisperAPI.py"]
 

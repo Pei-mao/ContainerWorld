@@ -26,5 +26,5 @@ RUN pip install --no-cache-dir flask openai-whisper pydub monpa six
 EXPOSE 5000
 
 # 啟動 Flask 應用
-#CMD ["python", "whisperAPI.py"]
+CMD ["python", "whisperAPI.py"]
 

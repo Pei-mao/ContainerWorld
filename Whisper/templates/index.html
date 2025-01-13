@@ -4,10 +4,94 @@
     <meta charset="UTF-8">
     <title>Whisper API - 音檔轉文字</title>
     <style>
-        /* 加入轉圈圈的樣式 */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
         .loader {
             border: 8px solid #f3f3f3;
-            border-top: 8px solid #3498db;
+            border-top: 8px solid #4CAF50;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -20,29 +104,19 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        #result {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        a {
-            display: block;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
-    <h1>上傳音檔文件進行轉錄</h1>
+    <h1>Whisper API - 音檔轉文字</h1>
     <form id="uploadForm" action="/transcribe" method="post" enctype="multipart/form-data">
         <label for="file">選擇音檔文件：</label>
         <input type="file" name="file" id="file" accept="audio/*" required>
-        <br><br>
+        <br>
         <input type="submit" value="上傳並轉錄">
     </form>
     <div class="loader" id="loader"></div>
     <div id="result">
-        <!-- 轉錄結果、資訊指標和下載連結將顯示在這裡 -->
+        <!-- 結果顯示區域 -->
     </div>
     <script>
         const form = document.querySelector('#uploadForm');
@@ -72,7 +146,7 @@
                     const metrics = result.information_metrics;
                     const metricsTable = `
                         <h2>資訊指標：</h2>
-                        <table border="1" style="margin: 0 auto;">
+                        <table>
                             <tr><th>指標名稱</th><th>數值</th></tr>
                             <tr><td>總持續時間 (秒)</td><td>${metrics['Total duration (seconds)']}</td></tr>
                             <tr><td>總詞數</td><td>${metrics['Total number of words']}</td></tr>

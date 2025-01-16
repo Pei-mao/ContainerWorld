@@ -2,12 +2,7 @@
 Registry/data/*
 OllamaLLM/ollama/models/*
 *.ipynb_checkpoints
-OllamaLLM/anythingllm/documents
-OllamaLLM/anythingllm/lancedb
-OllamaLLM/anythingllm/models
-OllamaLLM/anythingllm/vector-cache
-OllamaLLM/anythingllm/anythingllm.db
-OllamaLLM/anythingllm/.env
+OllamaLLM/anythingllm
 Project4/*
 vLLM/models
 Whisper/lab_interview.m4a

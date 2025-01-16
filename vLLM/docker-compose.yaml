@@ -6,7 +6,7 @@ services:
       ipc: host
       volumes:
         - ./models:/models
-      command: ["--model", "/models/Qwen2.5-7B-Instruct",  "--served-model-name", "qwen2.5-7b-instruct",  "--gpu-memory-utilization", "0.70"]
+      command: ["--model", "/models/Qwen2.5-7B-Instruct",  "--served-model-name", "qwen2.5-7b-instruct",  "--gpu-memory-utilization", "0.70", "--api-key", "123456"]
       ports:
         - 8000:8000
       deploy:

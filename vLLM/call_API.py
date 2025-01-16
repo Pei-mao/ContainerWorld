@@ -2,7 +2,7 @@ import openai
 
 client = openai.OpenAI(
     base_url='http://192.168.2.206:8000/v1',
-    api_key='NOT_NEED'
+    api_key='123456'
 
 )
 predict_ret = client.chat.completions.create(

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  jupyterhub:
+    build: .  
+    container_name: jupyterhub_hub   
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jupyterhub_data:/srv/jupyterlab
+      - /NFS:/persist
+    environment:
+      DOCKER_NETWORK_NAME: jupyter_hub
+    ports:
+      - "8000:8000"
+    restart: unless-stopped  
+    networks:
+      - jupyter_hub
+
+volumes:
+  jupyterhub_data:
+
+networks:
+  jupyter_hub:
+    name: jupyter_hub
+    driver: bridge

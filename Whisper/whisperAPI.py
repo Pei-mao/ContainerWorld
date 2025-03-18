@@ -49,6 +49,7 @@ def transcribe_audio():
         if nonsilent_ranges:
             # 裁剪掉静音部分
             start, _ = nonsilent_ranges[0]
+            cut_off_time = start
             trimmed_audio = audio[start:]
         else:
             # 如果没有有效音讯，返回错误
@@ -84,6 +85,7 @@ def transcribe_audio():
         response = {
             "transcription_result": full_text,
             "information_metrics": information_metrics,
+            "cut_off_time_ms": cut_off_time,
             "download_url": f"/download/{os.path.basename(json_file_path)}"
         }
         return jsonify(response)

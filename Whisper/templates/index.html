@@ -141,7 +141,10 @@
                 if (response.ok) {
                     // 顯示轉錄結果
                     const transcriptionResult = `<h2>轉錄結果：</h2><p>${result.transcription_result}</p>`;
-
+                    
+                    // 顯示開頭裁剪的時間
+                    const cutOffTime = `<h2>開頭裁剪時間：</h2><p>${result.cut_off_time_ms / 1000} 秒</p>`;
+    
                     // 顯示資訊指標
                     const metrics = result.information_metrics;
                     const metricsTable = `
@@ -164,7 +167,7 @@
                     const downloadLink = `<a href="${result.download_url}" download>下載 JSON 檔案</a>`;
 
                     // 將結果顯示在頁面上
-                    resultDiv.innerHTML = `${transcriptionResult}${metricsTable}${downloadLink}`;
+                    resultDiv.innerHTML = `${transcriptionResult}${cutOffTime}${metricsTable}${downloadLink}`;
                 } else {
                     resultDiv.innerHTML = `<h2>錯誤：</h2><p>${result.error}</p>`;
                 }

@@ -11,7 +11,7 @@
 * **Dockerised Deployment** – one‑click shell script downloads the model, builds the image and spins up the container.
 * **Simple Web UI** – drag‑and‑drop file upload with live results (see screenshot below).
 
-![UI Screenshot](docs/screenshot.png)
+![UI Screenshot](Display.png)
 
 ---
 
@@ -98,13 +98,15 @@ docker run -dit --gpus all -p 5005:5000 --name whisper-api-container whisper-api
 ```
 Whisper/
 ├─ Dockerfile
-├─ run_whisper_api.sh    # one‑click deploy script
-├─ download_model.py     # model downloader
-├─ app.py                # Flask/FastAPI entry point
-├─ templates/            # HTML templates
-├─ static/               # CSS / JS / images
-└─ docs/
-   └─ screenshot.png     # UI screenshot
+├─ run_whisper_api.sh        # one‑click deploy script
+├─ download_model.py         # model downloader
+├─ whisperAPI.py             # Flask/FastAPI entry point
+├─ templates/                # HTML templates
+├─ models/                   # downloaded Whisper models
+├─ utils/                    # utility functions
+├─ Display.png               # UI screenshot
+├─ *.wav / audio samples     # test audio files
+└─ README.md
 ```
 
 ---

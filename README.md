@@ -17,7 +17,7 @@ A scalable, containerized JupyterHub environment for collaborative development.
 - `DockerSpawner` integration isolating each user's environment using `Docker containers`.
 - Resource control limiting CPU and memory usage for each user to ensure system stability.
 - Customizable images with options for pre-built or custom `Docker images`.  
-[Learn More About JupyterhubDock](JupyterhubDock/README.md)
+[Learn More About JupyterhubDock](DataLab/README.md)
 
 ### 3. **OllamaLLM**  
 A containerized deployment of large language models (LLMs) as APIs using `Ollama`.

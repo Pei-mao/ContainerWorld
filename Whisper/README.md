@@ -1,62 +1,62 @@
-# Whisper API — 音檔轉文字服務
+# Whisper API — Speech‑to‑Text Service
 
-> 基於 [OpenAI Whisper](https://github.com/openai/whisper) 模型，提供簡易 RESTful API 與前端頁面，能將上傳的音訊檔（WAV/MP3…）即時轉成文字並回傳解析後的語音統計資訊。
+> A lightweight RESTful API and web front‑end powered by [OpenAI Whisper](https://github.com/openai/whisper). Upload an audio file (WAV/MP3/FLAC…) and receive an instant transcription plus detailed speech analytics in JSON format.
 
 ---
 
-## 功能特色
+## Features
 
-* **多語系辨識**：Whisper 支援多國語言，自動偵測語言並產生逐字稿。
-* **JSON 結果**：除了轉錄文字，同步回傳語速、發音率、訊息量等統計指標。
-* **Docker 化部署**：一鍵腳本完成模型下載、映像建置與容器啟動。
-* **簡易前端**：提供可上傳檔案並顯示結果的網頁介面（如下圖）。
+* **Multilingual Recognition** – automatic language detection with accurate transcripts.
+* **Rich JSON Output** – words per minute, speech/pause duration, bitrate, entropy and more.
+* **Dockerised Deployment** – one‑click shell script downloads the model, builds the image and spins up the container.
+* **Simple Web UI** – drag‑and‑drop file upload with live results (see screenshot below).
 
 ![UI Screenshot](docs/screenshot.png)
 
 ---
 
-## 快速開始
+## Quick Start
 
-### 1. 環境需求
+### 1 · Requirements
 
-| 需求                       | 最低版本          |
-| ------------------------ | ------------- |
-| Docker                   | 20.10+        |
-| NVIDIA GPU 驅動            | 470.xx+（建議最新） |
-| nvidia‑container‑toolkit | 任意可用版本        |
+| Component                    | Minimum Version |
+| ---------------------------- | --------------- |
+| Docker                       | 20.10 +         |
+| NVIDIA driver (optional GPU) | 470.xx +        |
+| nvidia‑container‑toolkit     | any             |
 
-> 若無 GPU，也可改用 `cpu` 分支或自行在 Dockerfile 移除 `--gpus all`（速度較慢）。
+> **No GPU?** Remove `--gpus all` in the run command and use a CPU‑only PyTorch wheel in the Dockerfile. Inference will be slower but still functional.
 
-### 2. 一鍵部署
+### 2 · One‑Click Deployment
 
 ```bash
-# 進入專案根目錄（含此 README 與 run_whisper_api.sh）
+# Run inside the project root (contains this README and run_whisper_api.sh)
 chmod +x run_whisper_api.sh
 ./run_whisper_api.sh
 ```
 
-腳本會自動：
+The script will automatically:
 
-1. 拉取 `python:3.10` 基礎映像。
-2. 於臨時容器內安裝 Whisper 並執行 `download_model.py` 下載模型（預設 `large`）。
-3. 建立 `whisper-api` Docker 映像。
-4. 啟動 `whisper-api-container`，對外開放 [http://localhost:5005](http://localhost:5005)。
+1. Pull the `python:3.10` base image.
+2. Use a **temporary** container to install Whisper and execute `download_model.py` (default model: **large**).
+3. Build the final `whisper-api` image.
+4. Launch `whisper-api-container` and expose [http://localhost:5005](http://localhost:5005).
 
 ---
 
-## API 介面
+## API Reference
 
 ### `POST /transcribe`
 
-| 參數   | 型別                   | 說明       |
-| ---- | -------------------- | -------- |
-| file | FormData (multipart) | 要轉錄的音訊檔案 |
+| Field | Type                | Description           |
+| ----- | ------------------- | --------------------- |
+| file  | multipart/form‑data | Audio file to convert |
 
-**回傳範例**
+**Sample Response**
 
 ```json
 {
-  "text": "這隻在一隻玩球把家裡的玻璃打破爸爸很生氣...",
+  "text": "The kids were playing ball and broke the window...",
   "stats": {
     "duration_sec": 26.46,
     "word_count": 74,
@@ -71,63 +71,58 @@ chmod +x run_whisper_api.sh
 }
 ```
 
-* `text`：完整逐字稿。
-* `stats`：語音分析指標。
-
-### 錯誤碼
-
-| HTTP 狀態 | 說明         |
-| ------- | ---------- |
-| 400     | 未提供檔案或格式錯誤 |
-| 500     | 伺服器內部錯誤    |
+| HTTP Code | Meaning                   |
+| --------- | ------------------------- |
+| 400       | No file or invalid format |
+| 500       | Internal server error     |
 
 ---
 
-## 手動流程（可選）
+## Manual Workflow (Optional)
 
 ```bash
-# 1. 下載模型
-python download_model.py  # 需要先 pip install git+https://github.com/openai/whisper.git
+# 1 · Download the model
+python download_model.py  # requires: pip install git+https://github.com/openai/whisper.git
 
-# 2. 建立映像
+# 2 · Build the image
 docker build -t whisper-api .
 
-# 3. 執行容器
+# 3 · Run the container
 docker run -dit --gpus all -p 5005:5000 --name whisper-api-container whisper-api
 ```
 
 ---
 
-## 專案結構
+## Project Structure
 
 ```
 Whisper/
 ├─ Dockerfile
-├─ run_whisper_api.sh  # 一鍵部署腳本
-├─ download_model.py   # 下載指定 whisper 模型
-├─ app.py              # Flask/FastAPI 伺服器入口
-├─ templates/          # 前端 HTML
-├─ static/             # CSS / JS / 圖片
+├─ run_whisper_api.sh    # one‑click deploy script
+├─ download_model.py     # model downloader
+├─ app.py                # Flask/FastAPI entry point
+├─ templates/            # HTML templates
+├─ static/               # CSS / JS / images
 └─ docs/
-   └─ screenshot.png   # UI 截圖
+   └─ screenshot.png     # UI screenshot
 ```
 
 ---
 
-## 常見問題（FAQ）
+## FAQ
 
 <details>
-<summary>Q1: 模型下載太慢或容量不足？</summary>
-改編 `download_model.py` 傳入 `--model_size small` 或 `medium` 等參數；或將腳本中的 `download_model.py` 修改為較小模型。
+<summary><strong>How can I use a smaller model?</strong></summary>
+Edit `download_model.py` (or pass an argument) to fetch `small`, `medium`, etc. This reduces download size and RAM usage.
 </details>
 
 <details>
-<summary>Q2: 沒有 GPU 可以跑嗎？</summary>
-可以。修改 `Dockerfile` 以 CPU-only 環境安裝 `torch` 與 `whisper`，並把 `docker run` 裡的 `--gpus all` 移除即可，惟速度會較慢。
+<summary><strong>Can I run without a GPU?</strong></summary>
+Yes. Build the image with CPU‑only PyTorch and remove `--gpus all` when running the container. Expect slower performance.
 </details>
 
 ---
 
-## 授權
+## License
 
-本專案採用 MIT License，詳見 `LICENSE` 檔案。
+Released under the MIT License – see `LICENSE` for details.

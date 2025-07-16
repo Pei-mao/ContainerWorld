@@ -11,13 +11,13 @@ A private container registry for securely hosting and managing your Docker image
 - Easy setup using `Docker` or `Docker Compose`.  
 [Learn More About Registry](Registry/README.md)
 
-### 2. **DataLab (WIP)**  
+### 2. **DataLab**  
 A scalable, containerized JupyterHub environment for collaborative development.
 - Multi-user support enabling multiple users to work simultaneously with individual environments.
 - `DockerSpawner` integration isolating each user's environment using `Docker containers`.
 - Resource control limiting CPU and memory usage for each user to ensure system stability.
 - Customizable images with options for pre-built or custom `Docker images`.  
-[Learn More About JupyterhubDock](DataLab/README.md)
+[Learn More About DataLab](DataLab/README.md)
 
 ### 3. **OllamaLLM**  
 A containerized deployment of large language models (LLMs) as APIs using `Ollama`.
